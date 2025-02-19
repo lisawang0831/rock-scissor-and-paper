@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .choices button {
+            font-size: 20px;
+            margin: 10px;
+            padding: 15px;
+            cursor: pointer;
+        }
+        .result-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+        }
+        .next-button {
+            display: none;
+            font-size: 20px;
+            padding: 10px 20px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rock Paper Scissors</h1>
+    <p>Choose your move:</p>
+    <div class="choices">
+        <button onclick="playGame('rock')">Rock</button>
+        <button onclick="playGame('paper')">Paper</button>
+        <button onclick="playGame('scissors')">Scissors</button>
+    </div>
+    <div class="result-screen" id="resultScreen">
+        <p id="resultText"></p>
+        <button class="next-button" onclick="resetGame()">Next</button>
+    </div>
+
+    <script>
+        function playGame(userChoice) {
+            const choices = ['rock', 'paper', 'scissors'];
+            const computerChoice = choices[Math.floor(Math.random() * 3)];
+            let result = '';
+            let bgColor = '';
+            
+            if (userChoice === computerChoice) {
+                result = "It's a tie!";
+                bgColor = 'gray';
+            } else if (
+                (userChoice === 'rock' && computerChoice === 'scissors') ||
+                (userChoice === 'paper' && computerChoice === 'rock') ||
+                (userChoice === 'scissors' && computerChoice === 'paper')
+            ) {
+                result = "You win!";
+                bgColor = 'green';
+            } else {
+                result = "You lose!";
+                bgColor = 'red';
+            }
+
+            document.getElementById('resultText').innerText = `${result} (You: ${userChoice}, Computer: ${computerChoice})`;
+            document.getElementById('resultScreen').style.backgroundColor = bgColor;
+            document.getElementById('resultScreen').style.display = 'flex';
+            document.querySelector('.next-button').style.display = 'block';
+        }
+
+        function resetGame() {
+            document.getElementById('resultScreen').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
